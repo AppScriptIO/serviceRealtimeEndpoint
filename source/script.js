@@ -1,53 +1,51 @@
-import { createWebSocketServerWS, createWebSocketServerIO, createWebSocketServerEngineIO } from './server.js'
+"use strict";var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");Object.defineProperty(exports, "__esModule", { value: true });exports.initialize = initialize;exports.initialize2 = initialize2;exports.initialize3 = initialize3;exports.webSocket = void 0;var _server = require("./server.js");var _webSocket = _interopRequireWildcard(require("./service/webSocket"));exports.webSocket = _webSocket;
 
-// let url = `${config.SOCKET_PROTOCOL}websocket.${config.HOST}`
-let port = 8087
 
-export async function initialize({ targetProjectConfig }) {
-  let server = await createWebSocketServerWS({ port })
+let port = 8087;
+
+async function initialize({ targetProjectConfig }) {
+  let server = await (0, _server.createWebSocketServerWS)({ port });
   server.on('connection', client => {
-    console.log('client connected !')
+    console.log('client connected !');
     client.on('message', message => {
-      console.log('received: %s', message)
+      console.log('received: %s', message);
       server.clients.forEach(function each(client) {
         if (client !== client && client.readyState === webSocket.OPEN) {
-          client.send(message)
+          client.send(message);
         }
-      })
-    })
-    var i = 0
-    setInterval(function() {
-      i++
-      console.log('interval running ! ' + i)
-      if (client.readyState == webSocket.OPEN) client.send(i)
-    }, 500)
-  })
+      });
+    });
+    var i = 0;
+    setInterval(function () {
+      i++;
+      console.log('interval running ! ' + i);
+      if (client.readyState == webSocket.OPEN) client.send(i);
+    }, 500);
+  });
 }
 
-// Using `socket.io` package.
-export async function initialize2() {
-  let server = await createWebSocketServerIOو({ port })
+
+async function initialize2() {
+  let server = await createWebSocketServerIOو({ port });
   server.on('connection', client => {
-    console.log('client connected !')
-    var i = 0
-    setInterval(function() {
-      i++
-      client.emit('event', { name: 'safi', requestNumber: i })
-    }, 500)
-    client.on('event', function(data) {})
-    client.on('disconnect', function() {})
-  })
+    console.log('client connected !');
+    var i = 0;
+    setInterval(function () {
+      i++;
+      client.emit('event', { name: 'safi', requestNumber: i });
+    }, 500);
+    client.on('event', function (data) {});
+    client.on('disconnect', function () {});
+  });
 }
 
-// Using `engine.io` package:
-export async function initialize3() {
-  let server = await createWebSocketServerEngineIO({ port })
+
+async function initialize3() {
+  let server = await (0, _server.createWebSocketServerEngineIO)({ port });
   server.on('connection', socket => {
-    console.log('Client connected !')
-    socket.on('message', function(data) {})
-    socket.on('close', function() {})
-  })
+    console.log('Client connected !');
+    socket.on('message', function (data) {});
+    socket.on('close', function () {});
+  });
 }
-
-
-export * as webSocket from './service/webSocket'
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NvdXJjZS9zY3JpcHQuanMiXSwibmFtZXMiOlsicG9ydCIsImluaXRpYWxpemUiLCJ0YXJnZXRQcm9qZWN0Q29uZmlnIiwic2VydmVyIiwib24iLCJjbGllbnQiLCJjb25zb2xlIiwibG9nIiwibWVzc2FnZSIsImNsaWVudHMiLCJmb3JFYWNoIiwiZWFjaCIsInJlYWR5U3RhdGUiLCJ3ZWJTb2NrZXQiLCJPUEVOIiwic2VuZCIsImkiLCJzZXRJbnRlcnZhbCIsImluaXRpYWxpemUyIiwiY3JlYXRlV2ViU29ja2V0U2VydmVySU/ZiCIsImVtaXQiLCJuYW1lIiwicmVxdWVzdE51bWJlciIsImRhdGEiLCJpbml0aWFsaXplMyIsInNvY2tldCJdLCJtYXBwaW5ncyI6ImlTQUFBLHFDOzs7QUFHQSxJQUFJQSxJQUFJLEdBQUcsSUFBWDs7QUFFTyxlQUFlQyxVQUFmLENBQTBCLEVBQUVDLG1CQUFGLEVBQTFCLEVBQW1EO0FBQ3hELE1BQUlDLE1BQU0sR0FBRyxNQUFNLHFDQUF3QixFQUFFSCxJQUFGLEVBQXhCLENBQW5CO0FBQ0FHLEVBQUFBLE1BQU0sQ0FBQ0MsRUFBUCxDQUFVLFlBQVYsRUFBd0JDLE1BQU0sSUFBSTtBQUNoQ0MsSUFBQUEsT0FBTyxDQUFDQyxHQUFSLENBQVksb0JBQVo7QUFDQUYsSUFBQUEsTUFBTSxDQUFDRCxFQUFQLENBQVUsU0FBVixFQUFxQkksT0FBTyxJQUFJO0FBQzlCRixNQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWSxjQUFaLEVBQTRCQyxPQUE1QjtBQUNBTCxNQUFBQSxNQUFNLENBQUNNLE9BQVAsQ0FBZUMsT0FBZixDQUF1QixTQUFTQyxJQUFULENBQWNOLE1BQWQsRUFBc0I7QUFDM0MsWUFBSUEsTUFBTSxLQUFLQSxNQUFYLElBQXFCQSxNQUFNLENBQUNPLFVBQVAsS0FBc0JDLFNBQVMsQ0FBQ0MsSUFBekQsRUFBK0Q7QUFDN0RULFVBQUFBLE1BQU0sQ0FBQ1UsSUFBUCxDQUFZUCxPQUFaO0FBQ0Q7QUFDRixPQUpEO0FBS0QsS0FQRDtBQVFBLFFBQUlRLENBQUMsR0FBRyxDQUFSO0FBQ0FDLElBQUFBLFdBQVcsQ0FBQyxZQUFXO0FBQ3JCRCxNQUFBQSxDQUFDO0FBQ0RWLE1BQUFBLE9BQU8sQ0FBQ0MsR0FBUixDQUFZLHdCQUF3QlMsQ0FBcEM7QUFDQSxVQUFJWCxNQUFNLENBQUNPLFVBQVAsSUFBcUJDLFNBQVMsQ0FBQ0MsSUFBbkMsRUFBeUNULE1BQU0sQ0FBQ1UsSUFBUCxDQUFZQyxDQUFaO0FBQzFDLEtBSlUsRUFJUixHQUpRLENBQVg7QUFLRCxHQWhCRDtBQWlCRDs7O0FBR00sZUFBZUUsV0FBZixHQUE2QjtBQUNsQyxNQUFJZixNQUFNLEdBQUcsTUFBTWdCLHdCQUF3QixDQUFDLEVBQUVuQixJQUFGLEVBQUQsQ0FBM0M7QUFDQUcsRUFBQUEsTUFBTSxDQUFDQyxFQUFQLENBQVUsWUFBVixFQUF3QkMsTUFBTSxJQUFJO0FBQ2hDQyxJQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWSxvQkFBWjtBQUNBLFFBQUlTLENBQUMsR0FBRyxDQUFSO0FBQ0FDLElBQUFBLFdBQVcsQ0FBQyxZQUFXO0FBQ3JCRCxNQUFBQSxDQUFDO0FBQ0RYLE1BQUFBLE1BQU0sQ0FBQ2UsSUFBUCxDQUFZLE9BQVosRUFBcUIsRUFBRUMsSUFBSSxFQUFFLE1BQVIsRUFBZ0JDLGFBQWEsRUFBRU4sQ0FBL0IsRUFBckI7QUFDRCxLQUhVLEVBR1IsR0FIUSxDQUFYO0FBSUFYLElBQUFBLE1BQU0sQ0FBQ0QsRUFBUCxDQUFVLE9BQVYsRUFBbUIsVUFBU21CLElBQVQsRUFBZSxDQUFFLENBQXBDO0FBQ0FsQixJQUFBQSxNQUFNLENBQUNELEVBQVAsQ0FBVSxZQUFWLEVBQXdCLFlBQVcsQ0FBRSxDQUFyQztBQUNELEdBVEQ7QUFVRDs7O0FBR00sZUFBZW9CLFdBQWYsR0FBNkI7QUFDbEMsTUFBSXJCLE1BQU0sR0FBRyxNQUFNLDJDQUE4QixFQUFFSCxJQUFGLEVBQTlCLENBQW5CO0FBQ0FHLEVBQUFBLE1BQU0sQ0FBQ0MsRUFBUCxDQUFVLFlBQVYsRUFBd0JxQixNQUFNLElBQUk7QUFDaENuQixJQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBWSxvQkFBWjtBQUNBa0IsSUFBQUEsTUFBTSxDQUFDckIsRUFBUCxDQUFVLFNBQVYsRUFBcUIsVUFBU21CLElBQVQsRUFBZSxDQUFFLENBQXRDO0FBQ0FFLElBQUFBLE1BQU0sQ0FBQ3JCLEVBQVAsQ0FBVSxPQUFWLEVBQW1CLFlBQVcsQ0FBRSxDQUFoQztBQUNELEdBSkQ7QUFLRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNyZWF0ZVdlYlNvY2tldFNlcnZlcldTLCBjcmVhdGVXZWJTb2NrZXRTZXJ2ZXJJTywgY3JlYXRlV2ViU29ja2V0U2VydmVyRW5naW5lSU8gfSBmcm9tICcuL3NlcnZlci5qcydcblxuLy8gbGV0IHVybCA9IGAke2NvbmZpZy5TT0NLRVRfUFJPVE9DT0x9d2Vic29ja2V0LiR7Y29uZmlnLkhPU1R9YFxubGV0IHBvcnQgPSA4MDg3XG5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBpbml0aWFsaXplKHsgdGFyZ2V0UHJvamVjdENvbmZpZyB9KSB7XG4gIGxldCBzZXJ2ZXIgPSBhd2FpdCBjcmVhdGVXZWJTb2NrZXRTZXJ2ZXJXUyh7IHBvcnQgfSlcbiAgc2VydmVyLm9uKCdjb25uZWN0aW9uJywgY2xpZW50ID0+IHtcbiAgICBjb25zb2xlLmxvZygnY2xpZW50IGNvbm5lY3RlZCAhJylcbiAgICBjbGllbnQub24oJ21lc3NhZ2UnLCBtZXNzYWdlID0+IHtcbiAgICAgIGNvbnNvbGUubG9nKCdyZWNlaXZlZDogJXMnLCBtZXNzYWdlKVxuICAgICAgc2VydmVyLmNsaWVudHMuZm9yRWFjaChmdW5jdGlvbiBlYWNoKGNsaWVudCkge1xuICAgICAgICBpZiAoY2xpZW50ICE9PSBjbGllbnQgJiYgY2xpZW50LnJlYWR5U3RhdGUgPT09IHdlYlNvY2tldC5PUEVOKSB7XG4gICAgICAgICAgY2xpZW50LnNlbmQobWVzc2FnZSlcbiAgICAgICAgfVxuICAgICAgfSlcbiAgICB9KVxuICAgIHZhciBpID0gMFxuICAgIHNldEludGVydmFsKGZ1bmN0aW9uKCkge1xuICAgICAgaSsrXG4gICAgICBjb25zb2xlLmxvZygnaW50ZXJ2YWwgcnVubmluZyAhICcgKyBpKVxuICAgICAgaWYgKGNsaWVudC5yZWFkeVN0YXRlID09IHdlYlNvY2tldC5PUEVOKSBjbGllbnQuc2VuZChpKVxuICAgIH0sIDUwMClcbiAgfSlcbn1cblxuLy8gVXNpbmcgYHNvY2tldC5pb2AgcGFja2FnZS5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBpbml0aWFsaXplMigpIHtcbiAgbGV0IHNlcnZlciA9IGF3YWl0IGNyZWF0ZVdlYlNvY2tldFNlcnZlcklP2YgoeyBwb3J0IH0pXG4gIHNlcnZlci5vbignY29ubmVjdGlvbicsIGNsaWVudCA9PiB7XG4gICAgY29uc29sZS5sb2coJ2NsaWVudCBjb25uZWN0ZWQgIScpXG4gICAgdmFyIGkgPSAwXG4gICAgc2V0SW50ZXJ2YWwoZnVuY3Rpb24oKSB7XG4gICAgICBpKytcbiAgICAgIGNsaWVudC5lbWl0KCdldmVudCcsIHsgbmFtZTogJ3NhZmknLCByZXF1ZXN0TnVtYmVyOiBpIH0pXG4gICAgfSwgNTAwKVxuICAgIGNsaWVudC5vbignZXZlbnQnLCBmdW5jdGlvbihkYXRhKSB7fSlcbiAgICBjbGllbnQub24oJ2Rpc2Nvbm5lY3QnLCBmdW5jdGlvbigpIHt9KVxuICB9KVxufVxuXG4vLyBVc2luZyBgZW5naW5lLmlvYCBwYWNrYWdlOlxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIGluaXRpYWxpemUzKCkge1xuICBsZXQgc2VydmVyID0gYXdhaXQgY3JlYXRlV2ViU29ja2V0U2VydmVyRW5naW5lSU8oeyBwb3J0IH0pXG4gIHNlcnZlci5vbignY29ubmVjdGlvbicsIHNvY2tldCA9PiB7XG4gICAgY29uc29sZS5sb2coJ0NsaWVudCBjb25uZWN0ZWQgIScpXG4gICAgc29ja2V0Lm9uKCdtZXNzYWdlJywgZnVuY3Rpb24oZGF0YSkge30pXG4gICAgc29ja2V0Lm9uKCdjbG9zZScsIGZ1bmN0aW9uKCkge30pXG4gIH0pXG59XG5cblxuZXhwb3J0ICogYXMgd2ViU29ja2V0IGZyb20gJy4vc2VydmljZS93ZWJTb2NrZXQnXG4iXX0=
