@@ -3,7 +3,7 @@ import { createWebSocketServerWS, createWebSocketServerIO, createWebSocketServer
 // let url = `${config.SOCKET_PROTOCOL}websocket.${config.HOST}`
 let port = 8087
 
-export async function initialize({ targetProjectConfig }) {
+export async function initializeWS({ targetProjectConfig }) {
   let server = await createWebSocketServerWS({ port })
   server.on('connection', client => {
     console.log('client connected !')
@@ -25,7 +25,7 @@ export async function initialize({ targetProjectConfig }) {
 }
 
 // Using `socket.io` package.
-export async function initialize2() {
+export async function initializeSocketIO() {
   let server = await createWebSocketServerIOو({ port })
   server.on('connection', client => {
     console.log('client connected !')
@@ -40,7 +40,7 @@ export async function initialize2() {
 }
 
 // Using `engine.io` package:
-export async function initialize3() {
+export async function initializeEngineIO() {
   let server = await createWebSocketServerEngineIO({ port })
   server.on('connection', socket => {
     console.log('Client connected !')
@@ -48,6 +48,3 @@ export async function initialize3() {
     socket.on('close', function() {})
   })
 }
-
-
-export * as webSocket from './service/webSocket'
