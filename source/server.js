@@ -1,31 +1,32 @@
-import webSocket from 'ws'
-import engineIO from 'engine.io'
-import socketIO from 'socket.io'
-import http from 'http'
-import https from 'https'
+"use strict";var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");Object.defineProperty(exports, "__esModule", { value: true });exports.createWebSocketServerWS = createWebSocketServerWS;exports.createWebSocketServerIO = createWebSocketServerIO;exports.createWebSocketServerEngineIO = createWebSocketServerEngineIO;var _ws = _interopRequireDefault(require("ws"));
+var _engine = _interopRequireDefault(require("engine.io"));
+var _socket = _interopRequireDefault(require("socket.io"));
+var _http = _interopRequireDefault(require("http"));
 
-// Using `ws` package.
-export async function createWebSocketServerWS({ port }) {
-  let server
+
+
+async function createWebSocketServerWS({ port }) {
+  let server;
   await new Promise((resolve, reject) => {
-    server = new webSocket.Server({ port }, () => {
-      console.log(`☕ Websocket server listening on port ${port}`)
-      resolve()
-    })
-  })
-  return server
+    server = new _ws.default.Server({ port }, () => {
+      console.log(`☕ Websocket server listening on port ${port}`);
+      resolve();
+    });
+  });
+  return server;
 }
 
-// Using `io` package.
-export async function createWebSocketServerIO({ port }) {
-  let httpServer = http.createServer().listen(port)
-  let server = socketIO(httpServer)
-  return server
+
+async function createWebSocketServerIO({ port }) {
+  let httpServer = _http.default.createServer().listen(port);
+  let server = (0, _socket.default)(httpServer);
+  return server;
 }
 
-// Engine.io - engine.io package and client package JSPM.
-export async function createWebSocketServerEngineIO({ port }) {
-  let httpServer = http.createServer().listen(port)
-  let server = engineIO.attach(httpServer)
-  return server
+
+async function createWebSocketServerEngineIO({ port }) {
+  let httpServer = _http.default.createServer().listen(port);
+  let server = _engine.default.attach(httpServer);
+  return server;
 }
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NvdXJjZS9zZXJ2ZXIuanMiXSwibmFtZXMiOlsiY3JlYXRlV2ViU29ja2V0U2VydmVyV1MiLCJwb3J0Iiwic2VydmVyIiwiUHJvbWlzZSIsInJlc29sdmUiLCJyZWplY3QiLCJ3ZWJTb2NrZXQiLCJTZXJ2ZXIiLCJjb25zb2xlIiwibG9nIiwiY3JlYXRlV2ViU29ja2V0U2VydmVySU8iLCJodHRwU2VydmVyIiwiaHR0cCIsImNyZWF0ZVNlcnZlciIsImxpc3RlbiIsImNyZWF0ZVdlYlNvY2tldFNlcnZlckVuZ2luZUlPIiwiZW5naW5lSU8iLCJhdHRhY2giXSwibWFwcGluZ3MiOiIwVkFBQTtBQUNBO0FBQ0E7QUFDQTs7OztBQUlPLGVBQWVBLHVCQUFmLENBQXVDLEVBQUVDLElBQUYsRUFBdkMsRUFBaUQ7QUFDdEQsTUFBSUMsTUFBSjtBQUNBLFFBQU0sSUFBSUMsT0FBSixDQUFZLENBQUNDLE9BQUQsRUFBVUMsTUFBVixLQUFxQjtBQUNyQ0gsSUFBQUEsTUFBTSxHQUFHLElBQUlJLFlBQVVDLE1BQWQsQ0FBcUIsRUFBRU4sSUFBRixFQUFyQixFQUErQixNQUFNO0FBQzVDTyxNQUFBQSxPQUFPLENBQUNDLEdBQVIsQ0FBYSx3Q0FBdUNSLElBQUssRUFBekQ7QUFDQUcsTUFBQUEsT0FBTztBQUNSLEtBSFEsQ0FBVDtBQUlELEdBTEssQ0FBTjtBQU1BLFNBQU9GLE1BQVA7QUFDRDs7O0FBR00sZUFBZVEsdUJBQWYsQ0FBdUMsRUFBRVQsSUFBRixFQUF2QyxFQUFpRDtBQUN0RCxNQUFJVSxVQUFVLEdBQUdDLGNBQUtDLFlBQUwsR0FBb0JDLE1BQXBCLENBQTJCYixJQUEzQixDQUFqQjtBQUNBLE1BQUlDLE1BQU0sR0FBRyxxQkFBU1MsVUFBVCxDQUFiO0FBQ0EsU0FBT1QsTUFBUDtBQUNEOzs7QUFHTSxlQUFlYSw2QkFBZixDQUE2QyxFQUFFZCxJQUFGLEVBQTdDLEVBQXVEO0FBQzVELE1BQUlVLFVBQVUsR0FBR0MsY0FBS0MsWUFBTCxHQUFvQkMsTUFBcEIsQ0FBMkJiLElBQTNCLENBQWpCO0FBQ0EsTUFBSUMsTUFBTSxHQUFHYyxnQkFBU0MsTUFBVCxDQUFnQk4sVUFBaEIsQ0FBYjtBQUNBLFNBQU9ULE1BQVA7QUFDRCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB3ZWJTb2NrZXQgZnJvbSAnd3MnXG5pbXBvcnQgZW5naW5lSU8gZnJvbSAnZW5naW5lLmlvJ1xuaW1wb3J0IHNvY2tldElPIGZyb20gJ3NvY2tldC5pbydcbmltcG9ydCBodHRwIGZyb20gJ2h0dHAnXG5pbXBvcnQgaHR0cHMgZnJvbSAnaHR0cHMnXG5cbi8vIFVzaW5nIGB3c2AgcGFja2FnZS5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBjcmVhdGVXZWJTb2NrZXRTZXJ2ZXJXUyh7IHBvcnQgfSkge1xuICBsZXQgc2VydmVyXG4gIGF3YWl0IG5ldyBQcm9taXNlKChyZXNvbHZlLCByZWplY3QpID0+IHtcbiAgICBzZXJ2ZXIgPSBuZXcgd2ViU29ja2V0LlNlcnZlcih7IHBvcnQgfSwgKCkgPT4ge1xuICAgICAgY29uc29sZS5sb2coYOKYlSBXZWJzb2NrZXQgc2VydmVyIGxpc3RlbmluZyBvbiBwb3J0ICR7cG9ydH1gKVxuICAgICAgcmVzb2x2ZSgpXG4gICAgfSlcbiAgfSlcbiAgcmV0dXJuIHNlcnZlclxufVxuXG4vLyBVc2luZyBgaW9gIHBhY2thZ2UuXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gY3JlYXRlV2ViU29ja2V0U2VydmVySU8oeyBwb3J0IH0pIHtcbiAgbGV0IGh0dHBTZXJ2ZXIgPSBodHRwLmNyZWF0ZVNlcnZlcigpLmxpc3Rlbihwb3J0KVxuICBsZXQgc2VydmVyID0gc29ja2V0SU8oaHR0cFNlcnZlcilcbiAgcmV0dXJuIHNlcnZlclxufVxuXG4vLyBFbmdpbmUuaW8gLSBlbmdpbmUuaW8gcGFja2FnZSBhbmQgY2xpZW50IHBhY2thZ2UgSlNQTS5cbmV4cG9ydCBhc3luYyBmdW5jdGlvbiBjcmVhdGVXZWJTb2NrZXRTZXJ2ZXJFbmdpbmVJTyh7IHBvcnQgfSkge1xuICBsZXQgaHR0cFNlcnZlciA9IGh0dHAuY3JlYXRlU2VydmVyKCkubGlzdGVuKHBvcnQpXG4gIGxldCBzZXJ2ZXIgPSBlbmdpbmVJTy5hdHRhY2goaHR0cFNlcnZlcilcbiAgcmV0dXJuIHNlcnZlclxufVxuIl19
